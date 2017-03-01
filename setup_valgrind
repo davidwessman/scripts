@@ -1,0 +1,13 @@
+clear
+echo "Start a docker container for running Valgrind and GDB"
+echo "Assure that the Docker.app" is running already.
+open /Applications/Docker.app
+sleep 5
+
+echo "Stop any running Valgrind-image"
+docker stop valgrind
+docker rm valgrind
+
+echo "CReate a new Valgrind-image"
+docker run -d --name valgrind -v ~/prog/school/cpp:/root/build --security-opt seccomp=unconfined valgrind
+docker exec -it valgrind /bin/bash
