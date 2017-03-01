@@ -1,0 +1,17 @@
+# Source of solution:
+# http://www.innovaedge.com/2015/08/08/fixing-postgres-that-doesnt-come-up-on-macosx-after-a-restart/
+clear
+
+echo "Trying to restart Postgres"
+
+echo "Declaring PGDATA"
+declare -x PGDATA="/Users/davidwessman/Library/Application Support/Postgres/var-9.4" 2>&1
+
+echo "Run first restart command, waiting for postgres to quit"
+pg_ctl restart -m immediate &>log
+
+echo "Run again to actually restart, turn the process off ones started."
+pg_ctl restart -m immediate &>log
+
+echo "Now starting Postgres.app"
+open /Applications/Postgres.app
